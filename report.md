@@ -98,11 +98,20 @@ task1 stablely reach to 90% , by just setting the constraints according objectiv
 When deal with task2, initialy nothing positive reward got. Trying to encourage the agent making any collision with prop object, with first successful touch, following action will be more   sensefule.
 Though Sometime I got very good result (see the video task2out.ogv) it's not total controllable . DQN still lack some  explicite way to make training smoothly like CNN
 
+### performance
+
+For both cases, the agent learn from the distance reward, so arm is keep moving toward to object(the basic motivation ). If episode has exceeded 100 frames,also punished, so arm should be quick, but often it's hesitate to go(move slowly), meaning that agent also learned from the hit-ground punishment
+
+But the difference between 2 tasks is that : first case it's so easy to have a collision with object that get more such reward , so it can performe very well;  second case only gripper collsion less happened in now setup, agent don't know what to do, so it can't complete task in most time. Though second reward defined, but it's a sparse reward.
+
+So here in case 2, any arm collision should be encouraged to get a chance of gripper collision .With more successful samples coming into the replay-memory, the agent will try to use more gripper-hit.
+
 ## Future Work:
 
 The task2 still not stable, more effort need to improve it-- increase the interim rewards by distance(from debug mode, sometime the interim award is too small), another is improve the encouraging mechanism which give more chance to get a good hit.
 
 Another thought is on the imitation training : via human action demo/instruction in simulation environment,  how quickly can an agent complete the task? This field is worth to have exploration.
+
 
 
 [task2-result-img]: ./docs/task2.png
